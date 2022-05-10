@@ -1,4 +1,6 @@
 <?php
+include("./vendor/autoload.php");
+$aCustomerId = null;
 
 $gateway = new Braintree\Gateway([
     'environment' => 'sandbox',
@@ -14,4 +16,14 @@ $clientToken = $gateway->clientToken()->generate([
 
 echo($clientToken = $gateway->clientToken()->generate());
 
-?>
+/*$nonceFromTheClient = $_POST["payment_method_nonce"];
+
+//Use payment method nonce here
+$result = $gateway->transaction()->sale([
+    'amount' => '10.00',
+    'paymentMethodNonce' => $nonceFromTheClient,
+    'deviceData' => $deviceDataFromTheClient,
+    'options' => [
+      'submitForSettlement' => True
+    ]
+  ]);*/
