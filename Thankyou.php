@@ -10,6 +10,7 @@
 
 <body>
     <h1>Thank you for your purchase!</h1>
+    <a href="./index.php">Voltar à página inicial</a>
 </body>
 
 </html>

@@ -9,7 +9,7 @@ $nonceFromTheClient = $_POST["payment_method_nonce"];
 $result = $gateway->transaction()->sale([
     'amount' => '25.00',
     'paymentMethodNonce' => $nonceFromTheClient,
-    'deviceData' => $deviceDataFromTheClient,
+    //'deviceData' => $deviceDataFromTheClient,
     'options' => [
       'submitForSettlement' => True
     ]

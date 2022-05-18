@@ -24,7 +24,7 @@
         const form = document.getElementById('payment-form');
 
         braintree.dropin.create({
-                authorization: '<?php echo(require('Token.php')); ?>',
+                authorization: 'sandbox_24pztqx3_92qqjm3ns8njk2w3',
                 container: '#dropin-container'
             },
             (error, dropinInstance) => {
