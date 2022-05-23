@@ -2,50 +2,97 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <script src="https://js.braintreegateway.com/web/dropin/1.33.1/js/dropin.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
 </head>
 
 <body>
-    <!-- Step one: add an empty container to your page -->
-    <div id="dropin-container"></div>
-    <form id="payment-form" action="createPayment.php" method="post">
-        <!-- Putting the empty container you plan to pass to
-      `braintree.dropin.create` inside a form will make layout and flow
-      easier to manage -->
-        <div id="dropin-container"></div>
+    <div style="background-color: #4086ff; text-align: center;">
+        <h1>Braintree Hosted Fields</h1>
+    </div>
+    <form action="createPayment.php" id="my-sample-form" method="post">
+        <label for="card-number">Card Number</label>
+        <div id="card-number"></div>
 
-        <input type="submit" />
-        <input type="hidden" id="nonce" name="payment_method_nonce" />
+        <label for="cvv">CVV</label>
+        <div id="cvv"></div>
+
+        <label for="expiration-date">Expiration Date</label>
+        <div id="expiration-date"></div>
+
+        <input type="submit" value="Pay" disabled />
     </form>
 
-    <script type="text/javascript">
-        // call `braintree.dropin.create` code here
-        const form = document.getElementById('payment-form');
+    <script src="https://js.braintreegateway.com/web/3.85.3/js/client.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.85.3/js/hosted-fields.min.js"></script>
+    <script>
+        var form = document.querySelector('#my-sample-form');
+        var submit = document.querySelector('input[type="submit"]');
 
-        braintree.dropin.create({
-                authorization: 'sandbox_24pztqx3_92qqjm3ns8njk2w3',
-                container: '#dropin-container'
-            },
-            (error, dropinInstance) => {
-                if (error) console.error(error);
+        braintree.client.create({
+            authorization: '<?php echo (require('Token.php')) ?>'
+        }, function(clientErr, clientInstance) {
+            if (clientErr) {
+                console.error(clientErr);
+                return;
+            }
 
-                form.addEventListener('submit', event => {
+            // This example shows Hosted Fields, but you can also use this
+            // client instance to create additional components here, such as
+            // PayPal or Data Collector.
+
+            braintree.hostedFields.create({
+                client: clientInstance,
+                styles: {
+                    'input': {
+                        'font-size': '14px'
+                    },
+                    'input.invalid': {
+                        'color': 'red'
+                    },
+                    'input.valid': {
+                        'color': 'green'
+                    }
+                },
+                fields: {
+                    number: {
+                        container: '#card-number',
+                        placeholder: '4111 1111 1111 1111',
+                        border: '1px solid #333'
+                    },
+                    cvv: {
+                        container: '#cvv',
+                        placeholder: '123'
+                    },
+                    expirationDate: {
+                        container: '#expiration-date',
+                        placeholder: '10/2022'
+                    }
+                }
+            }, function(hostedFieldsErr, hostedFieldsInstance) {
+                if (hostedFieldsErr) {
+                    console.error(hostedFieldsErr);
+                    return;
+                }
+
+                submit.removeAttribute('disabled');
+
+                form.addEventListener('submit', function(event) {
                     event.preventDefault();
 
-                    dropinInstance.requestPaymentMethod((error, payload) => {
-                        if (error) console.error(error);
+                    hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
+                        if (tokenizeErr) {
+                            console.error(tokenizeErr);
+                            return;
+                        }
 
-                        // Step four: when the user is ready to complete their
-                        //   transaction, use the dropinInstance to get a payment
-                        //   method nonce for the user's selected payment method, then add
-                        //   it a the hidden field before submitting the complete form to
-                        //   a server-side integration
-                        document.getElementById('nonce').value = payload.nonce;
-                        form.submit();
+                        // If this was a real integration, this is where you would
+                        // send the nonce to your server.
+                        console.log('Got a nonce: ' + payload.nonce);
                     });
-                });
+                }, false);
             });
+        });
     </script>
 </body>
 
