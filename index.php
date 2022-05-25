@@ -21,6 +21,7 @@
         <div id="expiration-date"></div>
 
         <input type="submit" value="Pay" disabled />
+        <input type="hidden" id="nonce" name="payment_method_nonce"/>
     </form>
 
     <script src="https://js.braintreegateway.com/web/3.85.3/js/client.min.js"></script>
@@ -89,6 +90,11 @@
                         // If this was a real integration, this is where you would
                         // send the nonce to your server.
                         console.log('Got a nonce: ' + payload.nonce);
+                        //payload.nonce = "./createPayment.php?payment_method_nonce?" + payload.nonce;
+                        document.getElementById("nonce").value = payload.nonce;
+                        console.log("Datatype payload: "+ typeof(payload));
+                        console.table(payload);
+                        form.submit();
                     });
                 }, false);
             });
