@@ -12,9 +12,6 @@ $gateway = new Braintree\Gateway([
 ]);
 
 // pass $clientToken to your front-end
-$clientToken = $gateway->clientToken()->generate([
-]);
-
 return($clientToken = $gateway->clientToken()->generate());
 
 ?>
