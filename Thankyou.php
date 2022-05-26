@@ -10,6 +10,9 @@
 
 <body>
     <h1>Thank you for your purchase!</h1>
+    <h1>ID da transação: <?php echo $_SESSION["transactionID"];?></h>
+    <br>
+    <br>
     <a href="./index.php">Voltar à página inicial</a>
 </body>
 

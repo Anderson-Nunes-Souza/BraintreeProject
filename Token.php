@@ -1,5 +1,6 @@
 <?php
 include("./vendor/autoload.php");
+session_start();
 
 $aCustomerId = null;
 
