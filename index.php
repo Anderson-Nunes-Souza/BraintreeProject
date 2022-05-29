@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
-</head>
+    <script src="https://js.braintreegateway.com/web/3.85.3/js/client.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.85.3/js/hosted-fields.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    </head>
 
 <body>
     <div style="background-color: #4086ff; text-align: center;">
@@ -22,84 +25,10 @@
 
         <input type="submit" value="Pay" disabled />
         <input type="hidden" id="nonce" name="payment_method_nonce"/>
+
+        <input type="hidden" id="Token">
     </form>
-
-    <script src="https://js.braintreegateway.com/web/3.85.3/js/client.min.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.85.3/js/hosted-fields.min.js"></script>
-    <script>
-        var form = document.querySelector('#my-sample-form');
-        var submit = document.querySelector('input[type="submit"]');
-
-        braintree.client.create({
-            authorization: '<?php echo (require('Token.php')) ?>'
-        }, function(clientErr, clientInstance) {
-            if (clientErr) {
-                console.error(clientErr);
-                return;
-            }
-
-            // This example shows Hosted Fields, but you can also use this
-            // client instance to create additional components here, such as
-            // PayPal or Data Collector.
-
-            braintree.hostedFields.create({
-                client: clientInstance,
-                styles: {
-                    'input': {
-                        'font-size': '14px'
-                    },
-                    'input.invalid': {
-                        'color': 'red'
-                    },
-                    'input.valid': {
-                        'color': 'green'
-                    }
-                },
-                fields: {
-                    number: {
-                        container: '#card-number',
-                        placeholder: '4111 1111 1111 1111',
-                        border: '1px solid #333'
-                    },
-                    cvv: {
-                        container: '#cvv',
-                        placeholder: '123'
-                    },
-                    expirationDate: {
-                        container: '#expiration-date',
-                        placeholder: '10/2022'
-                    }
-                }
-            }, function(hostedFieldsErr, hostedFieldsInstance) {
-                if (hostedFieldsErr) {
-                    console.error(hostedFieldsErr);
-                    return;
-                }
-
-                submit.removeAttribute('disabled');
-
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    hostedFieldsInstance.tokenize(function(tokenizeErr, payload) {
-                        if (tokenizeErr) {
-                            console.error(tokenizeErr);
-                            return;
-                        }
-
-                        // If this was a real integration, this is where you would
-                        // send the nonce to your server.
-                        console.log('Got a nonce: ' + payload.nonce);
-                        //payload.nonce = "./createPayment.php?payment_method_nonce?" + payload.nonce;
-                        document.getElementById("nonce").value = payload.nonce;
-                        console.log("Datatype payload: "+ typeof(payload));
-                        console.table(payload);
-                        form.submit();
-                    });
-                }, false);
-            });
-        });
-    </script>
+    <script type="text/javascript" src="./hfields.js"></script>
 </body>
 
 </html>
