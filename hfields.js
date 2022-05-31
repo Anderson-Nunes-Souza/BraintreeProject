@@ -30,22 +30,14 @@ function CriarBraintree(Token) {
 
         braintree.hostedFields.create({
             client: clientInstance,
-            styles: {
-                'input': {
-                    'font-size': '14px'
-                },
-                'input.invalid': {
-                    'color': 'red'
-                },
-                'input.valid': {
-                    'color': 'green'
-                }
-            },
             fields: {
+                cardholderName: {
+                    container: '#name',
+                    placeholder: 'Nome Sobrenome1 e Sobrenome2'
+                },
                 number: {
                     container: '#card-number',
                     placeholder: '4111 1111 1111 1111',
-                    border: '1px solid #333'
                 },
                 cvv: {
                     container: '#cvv',
@@ -54,8 +46,12 @@ function CriarBraintree(Token) {
                 expirationDate: {
                     container: '#expiration-date',
                     placeholder: '10/2022'
+                },
+                postalCode: {
+                    container: '#postalCode',
+                    placeholder: '12345-678'
                 }
-            }
+            },
         }, function(hostedFieldsErr, hostedFieldsInstance) {
             if (hostedFieldsErr) {
                 console.error(hostedFieldsErr);
