@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div style="background-color: #4086ff; text-align: center;">
+    <div class="cabecalho">
         <h1>Braintree Hosted Fields</h1>
     </div>
     <form action="createPayment.php" id="my-sample-form" method="post">
@@ -33,7 +33,10 @@
         <div id="expiration-date" class="campoform"></div>
         
         <!-- <input type="hidden" id="Token"> -->
-        
+
+        <!-- Tentar converter o botão para <button> ao invés de input 
+            <button type="submit" value="Pay" id="pButton">Checkout</button>  --> 
+
         <input type="submit" value="Pay" id="pButton" disabled />
 
         <input type="hidden" id="nonce" name="payment_method_nonce" />

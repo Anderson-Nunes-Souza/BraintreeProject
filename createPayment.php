@@ -1,7 +1,8 @@
 <?php 
 require('./Token.php');
 include("./vendor/autoload.php");
-
+//limpa o print do Token.php para não exibir na Thankyoupage
+ob_clean(); 
 
 $nonceFromTheClient = $_POST["payment_method_nonce"];
 //$deviceDataFromTheClient = $_POST["data_collector"];

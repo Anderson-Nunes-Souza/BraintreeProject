@@ -1,22 +1,29 @@
+.cabecalho {
+    background-color: #4086ff;
+    text-align: center;
+    font-size: xx-large;
+}
+
 body {
     background-color: #000;
 }
 
 #pButton {
-    object-position: center;
+    align-items: center;
     color: green;
+    size: 20px;
 }
 
 #my-sample-form {
     background-color: #4086ff;
     border: 1px dashed black;
     padding: 1%;
+    font-size: xx-large;
 }
 
 .campoform {
     background-color: #777;
-    border: 1px solid #333;
-    size: 20%;
+    border: 10px solid #333;
 }
 
 .campoform.braintree-hosted-fields-focused {
