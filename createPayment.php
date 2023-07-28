@@ -1,8 +1,7 @@
 <?php 
 require('./Token.php');
 include("./vendor/autoload.php");
-//limpa o print do Token.php para não exibir na Thankyoupage
-ob_clean(); 
+
 
 $nonceFromTheClient = $_POST["payment_method_nonce"];
 //$deviceDataFromTheClient = $_POST["data_collector"];
@@ -17,10 +16,11 @@ $result = $gateway->transaction()->sale([
     ]
   ]);
   
+  //print($result);
+  //print(gettype($result));
   //echo($result->success); //true
   //echo($result->transaction); //Exibe todos os dados da transação
   //$result->transaction->id; //Retorna o ID da transação
-  $_SESSION["transactionID"]= $result->transaction->id;
 
-  require('./Thankyou.php');
+  require('./Thankyou.php?transactionID='+ "123"+ $result->transaction->id);
 ?>
