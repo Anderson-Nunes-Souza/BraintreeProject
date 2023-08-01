@@ -31,6 +31,7 @@
 
         <input type="submit" value="Pay" disabled />
         <input type="hidden" id="nonce" name="payment_method_nonce" />
+        <!--input type="hidden" id="" name="data_collector"-->
 
         <input type="hidden" id="Token">
     </form>
