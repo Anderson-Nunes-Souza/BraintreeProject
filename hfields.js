@@ -51,10 +51,25 @@ function verifyCard(payload) {
         //console.log(response);
         console.log("response.nonce" + response.nonce);
         //makePayment(response.nonce);
-        next();
+        //next();
         // Send response.nonce to your server for use in your integration
         // The 3D Secure Authentication ID can be found
         //  at response.threeDSecureInfo.threeDSecureAuthenticationId
+        $.ajax({
+            type: "POST",
+            url: "createPayment.php",
+            data: {
+                'nonce': response.nonce
+            },
+            success: function (result) {
+                //alert(result)
+                document.write(result)
+                //form.submit();
+            },
+            error: function (error) {
+                alert(error);
+            }
+        })
     });
 }
 
@@ -140,7 +155,8 @@ function CriarBraintree(Token) {
                     document.getElementById("nonce").value = payload.nonce;
                     console.log("Datatype payload: " + typeof (payload));
                     console.table(payload);
-                    form.submit();
+                    
+                    //form.submit();
                 });
             }, false);
         });

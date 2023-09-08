@@ -8,11 +8,12 @@
     <script src="https://js.braintreegateway.com/web/3.85.3/js/hosted-fields.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Load the client component. -->
-    <script src="https://js.braintreegateway.com/web/3.96.1/js/client.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.97.1/js/client.min.js"></script>
     <!-- Load the 3D Secure component. -->
-    <script src="https://js.braintreegateway.com/web/3.96.1/js/three-d-secure.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.97.1/js/three-d-secure.min.js"></script>
+
     <!-- Load the Hosted Fields component. -->
-    <script src="https://js.braintreegateway.com/web/3.96.1/js/hosted-fields.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.97.1/js/hosted-fields.min.js"></script>
 </head>
 
 <body>
