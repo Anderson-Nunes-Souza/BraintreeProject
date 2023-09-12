@@ -44,7 +44,8 @@ function verifyCard(payload) {
 
     threeDSecure.verifyCard(threeDSecureParameters, function (err, response) {
         if (err) {
-            console.log(err);
+            alert(`Erro no verifyCard: ${err}`)
+            //console.log(err);
             return;
         }
         console.log(response.threeDSecureInfo.threeDSecureAuthenticationId)
@@ -62,9 +63,7 @@ function verifyCard(payload) {
                 'nonce': response.nonce
             },
             success: function (result) {
-                //alert(result)
                 document.write(result)
-                //form.submit();
             },
             error: function (error) {
                 alert(error);
@@ -119,16 +118,15 @@ function CriarBraintree(Token) {
                 number: {
                     container: '#card-number',
                     placeholder: '4111 1111 1111 1111',
-                    border: '1px solid #333'
                 },
                 cvv: {
                     container: '#cvv',
                     placeholder: '123'
                 },
-                expirationDate: {
-                    container: '#expiration-date',
-                    placeholder: '10/2022'
-                }
+                // expirationDate: {
+                //     container: '#expiration-date',
+                //     placeholder: '10/2022'
+                // }
             }
         }, function (hostedFieldsErr, hostedFieldsInstance) {
             if (hostedFieldsErr) {
